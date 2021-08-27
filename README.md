@@ -13,6 +13,8 @@ Edit config.properties file in src/test/java/resources package and change the LO
 # To Run Tests Start Appium Server and use: "mvn clean test" command while standing inside the project or by using your IDE's Maven Test command shortcut
 
 # To Package Tests for AWS use: "mvn clean package -DskipTests=true" command
-This will generate a zip-with-dependencies.zip file to be used against AWS DeviceFarm
+This will generate a zip-with-dependencies.zip file at /target/test-output/ to be used against AWS DeviceFarm
+AWS DeviceFarm testSpec for Android Java TestNG Appium is at /awsDeviceFarmTestSpecAndroidSmoke.yml
+APK to use in the practice is at /me.wolszon.fastshopping_23.apk
 
 # Report Generated at /target/test-output/AutomationReport.html
