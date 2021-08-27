@@ -1,0 +1,221 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+ <groupId>com.acme</groupId>
+<artifactId>acme-myApp-appium</artifactId>
+<version>1.0-SNAPSHOT</version>
+<packaging>jar</packaging>
+
+  <name>AppiumFramework</name>
+  <url>http://maven.apache.org</url>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.target>1.8</maven.compiler.target>
+     <maven.compiler.source>1.8</maven.compiler.source>
+     
+        <suite>androidSmoke.xml</suite>
+  </properties>
+  <build>
+  <testResources>
+     <testResource>
+        <directory>${project.basedir}/src/test/java</directory>
+     </testResource>
+</testResources>
+   
+  <plugins>
+  <plugin>
+    <groupId>com.github.ekryd.echo-maven-plugin</groupId>
+    <artifactId>echo-maven-plugin</artifactId>
+    <version>1.2.0</version>
+    <executions>
+        <execution>
+            <id>pre-clean</id>
+            <phase>pre-clean</phase>
+            <goals>
+                <goal>echo</goal>
+            </goals>
+            <configuration>
+                <message>In 'pre-clean'</message>
+            </configuration>
+        </execution>
+        <execution>
+            <id>clean</id>
+            <phase>clean</phase>
+            <goals>
+                <goal>echo</goal>
+            </goals>
+            <configuration>
+                <message>In 'clean'</message>
+            </configuration>
+        </execution>
+    </executions>
+</plugin>
+
+<plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                  <configuration>
+        <outputDirectory>${project.basedir}/target/test-output</outputDirectory>
+        </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>jar</goal>
+                            <goal>test-jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+   
+   <plugin>
+  <groupId>org.apache.maven.plugins</groupId>
+  <artifactId>maven-dependency-plugin</artifactId>
+  <version>2.10</version>
+  <configuration>
+        <outputDirectory>${project.basedir}/target/test-output/dependency-jars</outputDirectory>
+        </configuration>
+  <executions>
+    <execution>
+      <id>copy-dependencies</id>
+      <phase>package</phase>
+      <goals>
+        <goal>copy-dependencies</goal>
+      </goals>
+      
+    </execution>
+  </executions>
+</plugin>
+
+<plugin>
+  <artifactId>maven-assembly-plugin</artifactId>
+  <version>3.3.0</version>
+  <executions>
+    <execution>
+          <phase>package</phase> <!-- packaging phase -->
+          <goals>
+            <goal>single</goal>
+          </goals>
+                <configuration>
+       <finalName>zip-with-dependencies</finalName>
+        <appendAssemblyId>false</appendAssemblyId>
+        <descriptors>
+          <descriptor>${project.basedir}/src/main/assembly/zip.xml</descriptor>
+        </descriptors>
+                 <outputDirectory>${project.basedir}/target/test-output</outputDirectory> 
+      </configuration>
+      
+    </execution>
+  </executions>
+</plugin>
+
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>2.19.1</version>
+        <configuration>
+        <properties>
+       		 <property>
+              <name>surefire.testng.verbose</name>
+              <value>10</value>
+            </property>
+          </properties>
+        <outputDirectory>${project.basedir}/target/test-output</outputDirectory>
+        <reportsDirectory>${project.basedir}/target/test-output</reportsDirectory>
+          <suiteXmlFiles>
+            <suiteXmlFile>${project.basedir}/src/test/java/${suite}</suiteXmlFile>
+          </suiteXmlFiles>
+        </configuration>
+
+      </plugin>
+
+</plugins>
+  </build>
+  
+ 
+  <dependencies>
+<!-- https://mvnrepository.com/artifact/org.testng/testng -->
+<dependency>
+    <groupId>org.testng</groupId>
+    <artifactId>testng</artifactId>
+    <version>7.4.0</version>
+    <scope>test</scope>
+</dependency>
+   
+    <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
+<dependency>
+    <groupId>org.apache.commons</groupId>
+    <artifactId>commons-lang3</artifactId>
+    <version>3.9</version>
+</dependency>
+    <!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
+<dependency>
+    <groupId>commons-io</groupId>
+    <artifactId>commons-io</artifactId>
+    <version>2.6</version>
+</dependency>  
+    <dependency>
+    <groupId>io.appium</groupId>
+    <artifactId>java-client</artifactId>
+    <version>7.5.1</version>
+</dependency>
+
+<!-- https://mvnrepository.com/artifact/io.rest-assured/rest-assured -->
+<dependency>
+    <groupId>io.rest-assured</groupId>
+    <artifactId>rest-assured</artifactId>
+    <version>4.4.0</version>
+    <scope>test</scope>
+</dependency>
+
+<dependency>
+    <groupId>com.aventstack</groupId>
+    <artifactId>extentreports</artifactId>
+    <version>4.0.0</version>
+</dependency>
+
+<!-- https://mvnrepository.com/artifact/commons-validator/commons-validator -->
+<dependency>
+    <groupId>commons-validator</groupId>
+    <artifactId>commons-validator</artifactId>
+    <version>1.6</version>
+</dependency>
+
+<!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-simple -->
+<dependency>
+    <groupId>org.slf4j</groupId>
+    <artifactId>slf4j-simple</artifactId>
+    <version>1.7.26</version>
+    <scope>test</scope>
+</dependency>
+
+<!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
+<dependency>
+    <groupId>org.seleniumhq.selenium</groupId>
+    <artifactId>selenium-java</artifactId>
+    <version>3.141.59</version>
+</dependency>
+
+<!-- https://mvnrepository.com/artifact/org.apache-extras.beanshell/bsh -->
+<dependency>
+    <groupId>org.apache-extras.beanshell</groupId>
+    <artifactId>bsh</artifactId>
+    <version>2.0b5</version>
+</dependency>
+
+<!-- https://mvnrepository.com/artifact/org.json/json -->
+<dependency>
+    <groupId>org.json</groupId>
+    <artifactId>json</artifactId>
+    <version>20210307</version>
+</dependency>
+
+
+  </dependencies>
+  <!-- https://mvnrepository.com/artifact/io.appium/java-client -->
+
+
+  
+</project>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+
+<suite name="APP Automation Smoke Suite" configfailurepolicy="continue">
+   <parameter name="platform" value="android" />
+  
+  <listeners>
+   <listener class-name="resources.ExtentReporterNG" />
+   <listener class-name="resources.Listeners2" />
+ </listeners>
+
+ <test name="androidSmoke" preserve-order="true">
+
+    <classes>
+         <class name="testObjects.android.HomeScreenTestsAndroid"/>
+    	 <class name="testObjects.api.APITests"/>
+    </classes>
+  </test> <!-- Test -->
+</suite> <!-- Suite -->
